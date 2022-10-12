@@ -33,8 +33,18 @@ Route::get('/', function () {
 
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [BookController::class, 'index'])->name('home');
+    Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
+    Route::get('/book/edit/{book}', [BookController::class, 'edit'])->name('book.edit');
+    Route::post('/book/update/{id}', [BookController::class, 'update'])->name('book.update');
+    Route::post('/book/delete/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+    Route::post('/book/create', [BookController::class, 'store'])->name('book.store');
+});
 
-Route::get('/hello', [HomeController::class, 'index']);
+
+//
+//Route::get('/hello', [HomeController::class, 'index']);
 Route::post('/', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/Change-password', [LoginController::class, 'changePassword'])->name('change_password');
@@ -119,6 +129,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('/settings', [SettingsController::class, 'update'])->name('settings');
 });
 
+
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

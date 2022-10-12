@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div id="admin-content">
         <div class="container">
             <div class="row">
@@ -16,46 +16,54 @@
                     <div class="message"></div>
                     <table class="content-table">
                         <thead>
+
                             <th>S.No</th>
                             <th>Book Name</th>
                             <th>Category</th>
                             <th>Author</th>
                             <th>Publisher</th>
                             <th>Status</th>
+                            <th>Quantity</th>
+                        @if(Auth::user()->role == '1')
                             <th>Edit</th>
                             <th>Delete</th>
+                        @else
+                            <th>View</th>
+                            <th><i class="fa fa-shopping-cart" style="font-size:24px"></i></th>
+                        @endif
                         </thead>
                         <tbody>
-                            @forelse ($books as $book)
-                                <tr>
-                                    <td class="id">{{ $book->id }}</td>
-                                    <td>{{ $book->name }}</td>
-                                    <td>{{ $book->category->name }}</td>
-                                    <td>{{ $book->auther->name }}</td>
-                                    <td>{{ $book->publisher->name }}</td>
-                                    <td>
-                                        @if ($book->status == 'Y')
-                                            <span class='badge badge-success'>Available</span>
-                                        @else
-                                            <span class='badge badge-danger'>Issued</span>
-                                        @endif
-                                    </td>
-                                    <td class="edit">
-                                        <a href="{{ route('book.edit', $book) }}" class="btn btn-success">Edit</a>
-                                    </td>
-                                    <td class="delete">
-                                        <form action="{{ route('book.destroy', $book) }}" method="post"
-                                            class="form-hidden">
-                                            <button class="btn btn-danger delete-book">Delete</button>
-                                            @csrf
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8">No Books Found</td>
-                                </tr>
-                            @endforelse
+                        @forelse ($books as $book)
+                            <tr>
+                                <td class="id">{{ $book->id }}</td>
+                                <td>{{ $book->name }}</td>
+                                <td>{{ $book->category->name }}</td>
+                                <td>{{ $book->auther->name }}</td>
+                                <td>{{ $book->publisher->name }}</td>
+                                <td>
+                                    @if ($book->status == 'Y')
+                                        <span class='badge badge-success'>Available</span>
+                                    @else
+                                        <span class='badge badge-danger'>Issued</span>
+                                    @endif
+                                </td>
+                                <td>{{ $book->quantity }}</td>
+                                <td class="edit">
+                                    <a href="{{ route('book.edit', $book) }}" class="btn btn-success">Edit</a>
+                                </td>
+                                <td class="delete">
+                                    <form action="{{ route('book.destroy', $book) }}" method="post"
+                                          class="form-hidden">
+                                        @csrf
+                                        <button class="btn btn-danger delete-book">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8">No Books Found</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                     {{ $books->links('vendor/pagination/bootstrap-4') }}

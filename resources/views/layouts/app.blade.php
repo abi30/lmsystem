@@ -14,7 +14,7 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-  
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -62,15 +62,23 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item" ><a  class="nav-link " role="button" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('authors') }}">Authors</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('publishers') }}">Publishers</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('categories') }}">Categories</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('books') }}">Books</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('students') }}">Reg Students</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('book_issued') }}">Book Issue</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('reports') }}">Reports</a></li>
-                        <li class="nav-item" ><a  class="nav-link "  href="{{ route('settings') }}">Settings</a></li>
+                        @if(Auth::user()->role == '1')
+                        <li class ="nav-item" ><a  class="nav-link " role="button" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('authors') }}">Authors</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('publishers') }}">Publishers</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('categories') }}">Categories</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('books') }}">Books</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('students') }}">Reg Students</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('book_issued') }}">Book Issue</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('reports') }}">Reports</a></li>
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('settings') }}">Settings</a></li>
+                            @else
+                        <li class ="nav-item" ><a  class="nav-link "  href="{{ route('books') }}">Books</a></li>
+
+                            @endif
+
+
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -89,7 +97,7 @@
                                     </form>
                                 </div>
                             </li>
-                      
+
                         @endguest
                     </ul>
                 </div>
