@@ -37,7 +37,7 @@
                                             class="btn btn-primary view-btn">View</button>
                                     </td>
                                     <td class="edit">
-                                        <a href="{{ route('student.edit', $student) }}>" class="btn btn-success">Edit</a>
+                                        <a href="{{ route('student.edit', $student) }}" class="btn btn-success">Edit</a>
                                     </td>
                                     <td class="delete">
                                         <form action="{{ route('student.destroy', $student->id) }}" method="post"
